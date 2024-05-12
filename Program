@@ -57,7 +57,7 @@ class Program
             Console.WriteLine("Какое место занимает кот");
             int num = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Запис добавлена");
+            Console.WriteLine("Запись добавлена");
             Info info = new Info(name, paro, year, num);
 
             servis.Add(info);
