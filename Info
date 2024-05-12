@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Sample
+{
+    internal class Info
+    {
+        public int id;
+
+        public string name { get; set; }
+
+        public string paro { get; set; }
+
+        public int year { get; set; }
+
+        public int number { get; set; }
+
+        public Info(string n, string p, int ye, int num)
+        {
+            this.name = n;
+            this.paro = p;
+            this.year = ye;
+            this.number = num;
+        }
+
+        public string GetInfo()
+        {
+            return $"id = {id} \nname = {name} \nparo = {paro} \nyear = {year}";
+        }
+
+
+    }
+}
+
