@@ -1,0 +1,147 @@
+using Sample;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using Samples;
+
+class Program
+{
+    static Servis servis; 
+    private static void Main()
+    {
+       servis = new Servis();
+
+        Console.WriteLine("Вас приветствует программа выставки котов");
+
+        while (true)
+        {
+            Console.WriteLine("Введите номер команды");
+            PrintCommand();
+            string number = Console.ReadLine();
+
+            switch (number)
+            {
+                case "1": AddConsole(); break;
+                case "2": DeleteConsole(); break;
+                case "3": PrintList(); break;
+                case "4": GetPrintYearOld(); break;
+                case "5": GetPrintParo(); break;
+                case "6": Console.Clear(); break;
+                default: Console.WriteLine("Неверная команда"); break;
+            }
+        }
+
+
+        void PrintCommand()
+        {
+            Console.WriteLine("1 - Добавить запись");
+            Console.WriteLine("2 - Удалить запись");
+            Console.WriteLine("3 - Показать весь список");
+            Console.WriteLine("4 - Показать статистику котов по году");
+            Console.WriteLine("5 - Показать статистику котов по совокупности пород");
+            Console.WriteLine("6 - Очистить консоль");
+        }
+
+
+        void AddConsole()
+        {
+            Console.WriteLine("Добавить новую запись");
+
+            Console.WriteLine("Введите имя кота");
+            string name = Console.ReadLine();
+
+            Console.WriteLine("Введите пароду кота");
+            string paro = Console.ReadLine();
+
+            Console.WriteLine("Сколько лет коту");
+            int year = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Какое место занимает кот");
+            int num = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Запис добавлена");
+            Info info = new Info(name, paro, year, num);
+
+            servis.Add(info);
+            servis.Save();
+        }
+        void DeleteConsole()
+        {
+            Console.WriteLine("Удалить запись");
+            PrintList();
+            Console.WriteLine("Введите id записи для удаления");
+
+            try
+            {
+                int id = Convert.ToInt32(Console.ReadLine());
+
+                if (servis.Delete(id) == true)
+                {
+                    Console.WriteLine("Запись удалена");
+                }
+                else
+                {
+                    Console.WriteLine("Запись не удалена");
+                    PrintList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+    }
+
+    private static void GetPrintParo()
+    {
+        try
+        {
+            Console.WriteLine("Статистика котов по породе");
+            List<Info> list = servis.GetPrintParo();
+
+            foreach (Info name in list)
+            {
+                Console.WriteLine(name.name);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    static void GetPrintYearOld()
+    {
+
+        try
+        {
+            Console.WriteLine("Статистика котов по году");
+            List<Info> list = servis.GetPrintCatYearOld();
+
+            foreach (Info year in list)
+            {
+                Console.WriteLine(year.year);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+    }
+
+
+    static void PrintList()
+    {
+        Console.WriteLine("Список записей");
+
+        if (servis.inf.Count == 0)
+        {
+            Console.WriteLine("Нет записей");
+            return;
+        }
+
+        foreach (Info eat in servis.inf)
+        {
+            Console.WriteLine(eat.GetInfo());
+        }
+    }
+}
