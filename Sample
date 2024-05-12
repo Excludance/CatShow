@@ -75,24 +75,24 @@ namespace Samples
 
         public bool Delete(int id)
         {
-            foreach (Info info in inf)     // перебираем 
+            foreach (Info info in inf)     
             {
-                if (info.id == id)        // проверяем 
+                if (info.id == id)        
                 {
-                    inf.Remove(info);     // удаляем 
-                    Save();                 // сохраняем 
-                    return true;               // выходим 
+                    inf.Remove(info); 
+                    Save();                 
+                    return true;              
                 }
             }
-            return false;                    // если  никого  не  нашли 
+            return false;                    
         }
 
         private int GetId()
         {
-            if (inf.Count == 0)            // если  список  пустой 
-                return 1;                  // то  начнем  с 1 
+            if (inf.Count == 0)            
+                return 1;                 
             else
-                return inf.Last().id + 1;  // иначе - последний  элемент  списка  + 1 
+                return inf.Last().id + 1;  
         }
 
 
@@ -100,8 +100,8 @@ namespace Samples
         {
             try
             {
-                string contentJson = JsonConvert.SerializeObject(inf); // сериализуем
-                File.WriteAllText(path, contentJson); // полноситью  перезаписываем 
+                string contentJson = JsonConvert.SerializeObject(inf); 
+                File.WriteAllText(path, contentJson); 
             }
             catch (Exception ex)
             {
