@@ -1,0 +1,113 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using Sample;
+using Newtonsoft.Json;
+
+
+
+namespace Samples
+{
+    class Servis
+    {
+        public string path = "Catshow.json";
+
+        public List<Info> inf { get; set; }
+
+        public Servis()
+        {
+            File.Exists(path);
+            if (File.Exists(path) == false)
+            {
+                File.Create(path).Close();
+            }
+
+
+            try
+            {
+                string jsoncontent = File.ReadAllText(path);
+
+                inf = JsonConvert.DeserializeObject<List<Info>>(jsoncontent);
+
+                if (inf == null)
+                {
+                    inf = new List<Info>();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка чтения файла");
+            }
+        }
+
+
+        public List<Info> GetPrintCatYearOld()
+        {
+
+            List<Info> list = inf.ToList().OrderBy(x => x.year).ToList();
+            return list;
+        }
+
+
+        public List<Info> GetPrintParo()
+        {
+            List<Info> list = inf.ToList().OrderBy(x => x.number).ToList();
+            return list;
+        }
+        public void Add(Info info)
+        {
+            try
+            {
+                info.id = GetId();
+                inf.Add(info); // добавим в  лист 
+                Save(); // сохраним в  файл 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public bool Delete(int id)
+        {
+            foreach (Info info in inf)     // перебираем 
+            {
+                if (info.id == id)        // проверяем 
+                {
+                    inf.Remove(info);     // удаляем 
+                    Save();                 // сохраняем 
+                    return true;               // выходим 
+                }
+            }
+            return false;                    // если  никого  не  нашли 
+        }
+
+        private int GetId()
+        {
+            if (inf.Count == 0)            // если  список  пустой 
+                return 1;                  // то  начнем  с 1 
+            else
+                return inf.Last().id + 1;  // иначе - последний  элемент  списка  + 1 
+        }
+
+
+        public void Save()
+        {
+            try
+            {
+                string contentJson = JsonConvert.SerializeObject(inf); // сериализуем
+                File.WriteAllText(path, contentJson); // полноситью  перезаписываем 
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ошибка записи");
+            }
+        }
+    }
+}
+
