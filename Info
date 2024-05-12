@@ -28,7 +28,7 @@ namespace Sample
 
         public string GetInfo()
         {
-            return $"id = {id} \nname = {name} \nparo = {paro} \nyear = {year}";
+            return $"id = {id} \nимя = {name} \nпарода = {paro} \nгод = {year}";
         }
 
 
