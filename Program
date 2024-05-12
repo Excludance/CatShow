@@ -36,7 +36,7 @@ class Program
             Console.WriteLine("2 - Удалить запись");
             Console.WriteLine("3 - Показать весь список");
             Console.WriteLine("4 - Показать статистику котов по году");
-            Console.WriteLine("5 - Показать статистику котов по совокупности пород");
+            Console.WriteLine("5 - Показать иерархию котов по месту в топе");
             Console.WriteLine("6 - Очистить консоль");
         }
 
